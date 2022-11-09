@@ -75,7 +75,41 @@ public class GlobalExceptionHandler {
 	
 	return new ResponseEntity<>(validatorError,HttpStatus.NOT_ACCEPTABLE);
 	}
-
 	
+	@ExceptionHandler(CustomerException.class)
+	public ResponseEntity<MyErrorBean> customerExceptionHandler(CustomerException ce, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ce.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(CartException.class)
+	public ResponseEntity<MyErrorBean> cartExceptionHandler(CartException ce, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ce.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(OrderException.class)
+	public ResponseEntity<MyErrorBean> orderExceptionHandler(OrderException oe, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(oe.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<MyErrorBean> addressExceptionHandler(AddressException ae, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ae.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
 	
 }
