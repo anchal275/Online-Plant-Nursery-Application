@@ -13,7 +13,7 @@ public class Planter {
 	@Min(value=1 , message = "Planter capacity should not be less than 1")
 	private Double planterCapacity;
 	
-	@Min(value=1 , message = "Drainage holes should not be less than1)
+	@Min(value=1 , message = "Drainage holes should not be less than1")
 	private Integer drainageHoles;
 	
 	@NotBlank(message = "blank space is not allowed must have character")
