@@ -1,7 +1,20 @@
 package com.masai.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+
+
 public class Planter {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private Integer planterId;
 	
@@ -37,5 +50,6 @@ public class Planter {
 	
 	@OneToOne(cascade= CascadeType.ALL)
 	Plant Plants;
+	
 	
 }
