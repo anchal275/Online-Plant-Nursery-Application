@@ -75,6 +75,20 @@ public class GlobalExceptionHandler {
 	
 	return new ResponseEntity<>(validatorError,HttpStatus.NOT_ACCEPTABLE);
 	}
+
+
+	//mY planteR excepioN handleR
+		@ExceptionHandler(PlanterException.class)
+		public ResponseEntity<MyErrorBean> myPlanteExceptionHandler(PlanterException pe, WebRequest req){
+			
+			MyErrorBean err =new MyErrorBean();
+			err.setTimestamp(LocalDateTime.now());
+			err.setMessage(pe.getMessage());
+			err.setDetails(req.getDescription(false));
+			
+			return new ResponseEntity<MyErrorBean>(err, HttpStatus.BAD_REQUEST);
+		}
+
 	
 	@ExceptionHandler(CustomerException.class)
 	public ResponseEntity<MyErrorBean> customerExceptionHandler(CustomerException ce, WebRequest req){
