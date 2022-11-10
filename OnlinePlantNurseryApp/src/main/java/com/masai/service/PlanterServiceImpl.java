@@ -89,7 +89,7 @@ public class PlanterServiceImpl implements PlanterService{
 
 	@Override
 	public List<Planter> viewAllPlanters(double minCost, double maxCost) throws PlanterException {
-		List<Planter> allPlanters = planterRepo.findByPlanterConstBetween(minCost, maxCost);
+		List<Planter> allPlanters = planterRepo.findByPlanterCostBetween(minCost, maxCost);
 		
 		if(allPlanters.size() == 0)
 			throw new PlanterException("Not any planter found");

@@ -23,7 +23,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
 public class Planter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)	
