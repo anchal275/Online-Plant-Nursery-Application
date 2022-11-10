@@ -15,7 +15,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalExceptionHandler {
 	//plantException
 	@ExceptionHandler(PlantException.class)
-	public ResponseEntity<MyErrorBean> MyExceptionHandler(PlantException ie,WebRequest wr){
+	public ResponseEntity<MyErrorBean> PlantExceptionHandler(PlantException ie,WebRequest wr){
 		
 		MyErrorBean error = new MyErrorBean();
 		error.setTimestamp(LocalDateTime.now());
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 	
 	//SeedException
 	@ExceptionHandler(SeedException.class)
-	public ResponseEntity<MyErrorBean> MyExceptionHandler(SeedException ie,WebRequest wr){
+	public ResponseEntity<MyErrorBean> SeedExceptionHandler(SeedException ie,WebRequest wr){
 		
 		MyErrorBean error = new MyErrorBean();
 		error.setTimestamp(LocalDateTime.now());
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
 
 	//globalException
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<MyErrorBean> MyExceptionHandler(Exception ie,WebRequest wr){
+	public ResponseEntity<MyErrorBean> GlobalExceptionHandler(Exception ie,WebRequest wr){
 		MyErrorBean error = new MyErrorBean();
 		error.setTimestamp(LocalDateTime.now());
 		error.setMessage(ie.getMessage());
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
 	
 	//to handle Not found exception
 	@ExceptionHandler(NoHandlerFoundException.class)
-	public ResponseEntity<MyErrorBean> mynotFoundHandler(NoHandlerFoundException nfe,WebRequest wr) {
+	public ResponseEntity<MyErrorBean> myNotFoundHandler(NoHandlerFoundException nfe,WebRequest wr) {
 		MyErrorBean error = new MyErrorBean();
 		error.setTimestamp(LocalDateTime.now());
 		error.setMessage(nfe.getMessage());
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
 	
 	//validation exception handler
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<MyErrorBean> validatorHandler(MethodArgumentNotValidException ie) {
+	public ResponseEntity<MyErrorBean> validationExceptionHandler(MethodArgumentNotValidException ie) {
 	
 		MyErrorBean validatorError = new MyErrorBean();
 		
@@ -75,8 +75,8 @@ public class GlobalExceptionHandler {
 	
 	return new ResponseEntity<>(validatorError,HttpStatus.NOT_ACCEPTABLE);
 	}
-	
-	
+
+
 	//mY planteR excepioN handleR
 		@ExceptionHandler(PlanterException.class)
 		public ResponseEntity<MyErrorBean> myPlanteExceptionHandler(PlanterException pe, WebRequest req){
@@ -88,6 +88,42 @@ public class GlobalExceptionHandler {
 			
 			return new ResponseEntity<MyErrorBean>(err, HttpStatus.BAD_REQUEST);
 		}
+
 	
+	@ExceptionHandler(CustomerException.class)
+	public ResponseEntity<MyErrorBean> customerExceptionHandler(CustomerException ce, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ce.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(CartException.class)
+	public ResponseEntity<MyErrorBean> cartExceptionHandler(CartException ce, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ce.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(OrderException.class)
+	public ResponseEntity<MyErrorBean> orderExceptionHandler(OrderException oe, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(oe.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<MyErrorBean> addressExceptionHandler(AddressException ae, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ae.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
 	
 }
