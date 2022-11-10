@@ -21,7 +21,7 @@ public class CurrentUserSession {
 	
 	@Id
 	@Column(unique = true)
-	private String userId;
+	private Integer userId;
 
 	
 	private String key;
