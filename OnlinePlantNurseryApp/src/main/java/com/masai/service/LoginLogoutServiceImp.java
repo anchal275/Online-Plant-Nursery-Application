@@ -3,6 +3,7 @@ package com.masai.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.LoginException;
 import com.masai.model.CurrentUserSession;
@@ -13,6 +14,8 @@ import com.masai.repository.userRepo;
 
 import net.bytebuddy.utility.RandomString;
 
+
+@Service
 public class LoginLogoutServiceImp implements LoginLogoutService{
 	
 	

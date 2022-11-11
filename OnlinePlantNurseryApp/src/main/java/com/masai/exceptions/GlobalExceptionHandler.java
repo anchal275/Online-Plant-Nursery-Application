@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
 
 	//globalException
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<MyErrorBean> GlobalExceptionHandler(Exception ie,WebRequest wr){
+	public ResponseEntity<MyErrorBean> globalExceptionHandler(Exception ie,WebRequest wr){
 		MyErrorBean error = new MyErrorBean();
 		error.setTimestamp(LocalDateTime.now());
 		error.setMessage(ie.getMessage());

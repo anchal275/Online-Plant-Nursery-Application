@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 public class LoginController {
 	
 	@Autowired
-	LoginLogoutService lls;
+	private LoginLogoutService lls;
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDto) throws LoginException{
