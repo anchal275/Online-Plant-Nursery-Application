@@ -4,19 +4,22 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
+import com.masai.exceptions.PlanterException;
+import com.masai.model.Planter;
+import com.masai.repository.PlanterDao;
 import com.masai.exceptions.AdminException;
 import com.masai.exceptions.PlanterException;
 import com.masai.model.Planter;
 import com.masai.repository.PlanterDao;
 
+@Service
 public class PlanterServiceImpl implements PlanterService{
 	
 	@Autowired
 	private PlanterDao planterRepo;
 	
-	
-	@Override
+
 	public Planter addPlanter(Planter planter, String key) throws PlanterException, AdminException {
 		
 		if(key.equals("admin")) {
@@ -67,10 +70,7 @@ public class PlanterServiceImpl implements PlanterService{
 		}
 		else {
 			throw new AdminException("Invalid admin id :"+key);
-		}
-		
-       
-		
+		}		
 	}
 
 	@Override
