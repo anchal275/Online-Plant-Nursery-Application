@@ -57,7 +57,5 @@ public class Plant {
 	@Min(value = 1 , message = "Plant Cost Cannot Be Zero")
 	private double plantCost;
   
-	@Min(value = 1 , message = "Plant Cost Cannot Be Zero")
-	private double plantCost;
 
 }
