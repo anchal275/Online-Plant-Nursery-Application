@@ -29,7 +29,6 @@ public class LoginController {
 	}
 	
 	
-	
 	@PostMapping("/logout")
 	public String logoutCustomer(@RequestParam(required = false) String key) throws LoginException {
 		return lls.logOutFromAccount(key);

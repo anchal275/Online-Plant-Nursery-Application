@@ -6,11 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.masai.exceptions.LoginException;
 import com.masai.exceptions.SeedException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Seed;
 import com.masai.repository.CurrentUserSessionRepo;
+import com.masai.exceptions.SeedException;
+import com.masai.model.Seed;
 import com.masai.repository.SeedRepo;
 
 
@@ -20,6 +23,7 @@ public class SeedServiceImpl implements SeedService{
 	@Autowired
 	private SeedRepo sRepo;
 	
+
 	@Autowired
 	private CurrentUserSessionRepo cRepo;
 	
@@ -66,7 +70,7 @@ public class SeedServiceImpl implements SeedService{
 				
 			if(find.isPresent()) {
 			Seed seed = find.get();
-				sRepo.delete(seed);
+			sRepo.delete(seed);
 				return seed;
 			}
 			else
@@ -74,7 +78,6 @@ public class SeedServiceImpl implements SeedService{
 		}else {
 			throw new LoginException("Please Enter the Correct Admin Key");
 		}
-		
 	}
 
 	@Override
@@ -126,7 +129,6 @@ public class SeedServiceImpl implements SeedService{
 		}else {
 			throw new LoginException("please provide a valid Key to view all seed");
 		}
-		
 	}
 
 	@Override
@@ -141,8 +143,6 @@ public class SeedServiceImpl implements SeedService{
 		     return allSeedBySeedType;
 		   }   
 	   }else {
-		   
 		  throw new LoginException("please provide a valid Key to view all seed Type");
 	   }  
 	}
-}

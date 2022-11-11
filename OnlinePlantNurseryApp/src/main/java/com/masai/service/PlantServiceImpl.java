@@ -5,12 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.masai.exceptions.LoginException;
 import com.masai.exceptions.PlantException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Plant;
 import com.masai.repository.CurrentUserSessionRepo;
+import com.masai.exceptions.PlantException;
+import com.masai.model.Plant;
 import com.masai.repository.PlantRepo;
 
 
@@ -34,11 +35,7 @@ public class PlantServiceImpl implements PlantService {
 			}	
 		}else {
 			throw new LoginException("Please Enter the Correct Admin Key");
-		}
-		
-		
-		
-		
+		}	
 	}
 
 	@Override
@@ -75,10 +72,9 @@ public class PlantServiceImpl implements PlantService {
         }else {
         	throw new LoginException("Please Enter the Correct Admin Key");
         }
+       }
 		
-		
-		
-	}
+
 
 	@Override
 	public Plant viewPlant(Integer plantId,String Key) throws PlantException,LoginException {
@@ -92,9 +88,8 @@ public class PlantServiceImpl implements PlantService {
 		}else {
 			throw new LoginException("please provide a valid Key to view Plant");
 		}
-		
-
 	}
+  
 
 	@Override
 	public List<Plant> viewPlant(String commonName,String Key) throws PlantException,LoginException {
@@ -111,9 +106,9 @@ public class PlantServiceImpl implements PlantService {
 		}else {
 			throw new LoginException("please provide a valid Key to view Plant by common name");
 		}
-		
-	
 	}
+  
+  
 
 	@Override
 	public List<Plant> viewAllPlants(String Key) throws PlantException,LoginException {
@@ -129,9 +124,6 @@ public class PlantServiceImpl implements PlantService {
 	   }else {
 		   throw new LoginException("please provide a valid Key to view Plants");
 	   }
-		
-	
-		
 	}
 
 	@Override
@@ -148,8 +140,4 @@ public class PlantServiceImpl implements PlantService {
 		}else {
 			throw new LoginException("please provide a valid Key to view Plant Type");
 		}
-	}
-	
-	
-
 }

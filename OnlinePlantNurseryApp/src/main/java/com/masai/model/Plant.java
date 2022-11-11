@@ -1,10 +1,4 @@
 package com.masai.model;
-
-<<<<<<< Updated upstream
-public class Plant {
-	
-	
-=======
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -62,6 +56,8 @@ public class Plant {
 	@NotNull
 	@Min(value = 1 , message = "Plant Cost Cannot Be Zero")
 	private double plantCost;
->>>>>>> Stashed changes
+  
+	@Min(value = 1 , message = "Plant Cost Cannot Be Zero")
+	private double plantCost;
 
 }

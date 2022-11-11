@@ -8,7 +8,8 @@ import com.masai.model.Seed;
 
 public interface SeedService {
 	
-	 public Seed addSeed(Seed seed,String Key) throws SeedException,LoginException;
+
+	   public Seed addSeed(Seed seed,String Key) throws SeedException,LoginException;
 		
      public Seed updateSeed(Seed seed,String Key) throws SeedException,LoginException;
 		
@@ -21,4 +22,5 @@ public interface SeedService {
      public List<Seed> viewAllSeeds(String Key) throws SeedException,LoginException;
      
      public List<Seed> viewAllSeeds(String typeOfSeed,String Key) throws SeedException,LoginException;
+
 }
