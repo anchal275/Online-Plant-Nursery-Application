@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masai.exceptions.LoginException;
 import com.masai.model.LoginDTO;
 import com.masai.service.LoginLogoutService;
 
@@ -19,7 +20,7 @@ public class LoginController {
 	LoginLogoutService lls;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDto) throws Exception{
+	public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDto) throws LoginException{
 		
 		String result = lls.logIntoAccount(loginDto);
 		
@@ -33,7 +34,7 @@ public class LoginController {
 	
 	
 	@PostMapping("/logout")
-	public String logoutCustomer(@RequestParam(required = false) String key) throws Exception {
+	public String logoutCustomer(@RequestParam(required = false) String key) throws LoginException {
 		return lls.logOutFromAccount(key);
 		
 	}

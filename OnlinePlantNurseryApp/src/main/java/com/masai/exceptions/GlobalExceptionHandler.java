@@ -76,6 +76,15 @@ public class GlobalExceptionHandler {
 	return new ResponseEntity<>(validatorError,HttpStatus.NOT_ACCEPTABLE);
 	}
 
+	//loginException
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<MyErrorBean> loginExceptionHandler(LoginException ie,WebRequest wr){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ie.getMessage());
+		error.setDetails(wr.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
 	
 	
 }

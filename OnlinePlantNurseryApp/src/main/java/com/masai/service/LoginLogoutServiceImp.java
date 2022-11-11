@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.masai.exceptions.LoginException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
 import com.masai.model.LoginDTO;
@@ -33,12 +34,12 @@ public class LoginLogoutServiceImp implements LoginLogoutService{
 	
 
 	@Override
-	public String logIntoAccount(LoginDTO dto) throws Exception {
+	public String logIntoAccount(LoginDTO dto) throws LoginException {
 
 		Customer c=ur.findByUserName(dto.getUserName());
 		
 		if(c==null) {
-			throw new Exception("please Enter Valid UserName");
+			throw new LoginException("please Enter Valid UserName");
 		}
 		
 		
@@ -46,7 +47,7 @@ public class LoginLogoutServiceImp implements LoginLogoutService{
 		
 		
 		if(validCustomerSession.isPresent()) {
-			throw new Exception("User already logedIn with this userName: ");
+			throw new LoginException("User already logedIn with this userName: ");
 		}
 		
 		
@@ -62,7 +63,7 @@ public class LoginLogoutServiceImp implements LoginLogoutService{
 			return currentUserSession.toString();
 		}
 		else
-			throw new Exception("Please enter valid password");
+			throw new LoginException("Please enter valid password");
 		
 
 	}
@@ -73,28 +74,18 @@ public class LoginLogoutServiceImp implements LoginLogoutService{
 
 	
 	@Override
-	public String logOutFromAccount(String key) throws Exception {
+	public String logOutFromAccount(String key) throws LoginException {
 
 		CurrentUserSession validCustomerSession = cusr.findByKey(key);
 		
 		if(validCustomerSession==null) {
-			throw new Exception("User Not logged In with this userName: ");
+			throw new LoginException("User Not logged In with this userName: ");
 		}
 		
 		cusr.delete(validCustomerSession);
 		
 		return "Loged Out: ";
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
