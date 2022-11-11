@@ -2,22 +2,25 @@ package com.masai.service;
 
 import java.util.List;
 
+import com.masai.exceptions.LoginException;
 import com.masai.exceptions.SeedException;
 import com.masai.model.Seed;
 
 public interface SeedService {
 	
-	 public Seed addSeed(Seed seed) throws SeedException;
+
+	   public Seed addSeed(Seed seed,String Key) throws SeedException,LoginException;
 		
-     public Seed updateSeed(Seed seed) throws SeedException;
+     public Seed updateSeed(Seed seed,String Key) throws SeedException,LoginException;
 		
-     public Seed deleteSeed(Integer seedId) throws SeedException;
+     public Seed deleteSeed(Integer seedId,String Key) throws SeedException,LoginException;
 		
-     public Seed viewSeed(int seedId) throws SeedException;
+     public Seed viewSeed(int seedId,String Key) throws SeedException,LoginException;
 		
-     public List<Seed> viewSeed(String commonName) throws SeedException;
+     public List<Seed> viewSeed(String commonName,String Key) throws SeedException,LoginException;
 		
-     public List<Seed> viewAllSeeds() throws SeedException;
+     public List<Seed> viewAllSeeds(String Key) throws SeedException,LoginException;
      
-     public List<Seed> viewAllSeeds(String typeOfSeed) throws SeedException;
+     public List<Seed> viewAllSeeds(String typeOfSeed,String Key) throws SeedException,LoginException;
+
 }

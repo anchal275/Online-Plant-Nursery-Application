@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.masai.exceptions.PlanterException;
+import com.masai.model.Planter;
+import com.masai.repository.PlanterDao;
+import com.masai.exceptions.AdminException;
 import com.masai.exceptions.PlanterException;
 import com.masai.model.Planter;
 import com.masai.repository.PlanterDao;
@@ -16,44 +19,58 @@ public class PlanterServiceImpl implements PlanterService{
 	@Autowired
 	private PlanterDao planterRepo;
 	
-	
-	@Override
-	public Planter addPlanter(Planter planter) throws PlanterException {
+
+	public Planter addPlanter(Planter planter, String key) throws PlanterException, AdminException {
 		
-		Planter savedPlanter = planterRepo.save(planter);
-		
-		if(savedPlanter != null)
-			return savedPlanter;
-		
-		else
-			throw new PlanterException("Could not aad planter give planter details properly");
+		if(key.equals("admin")) {
+			Planter savedPlanter = planterRepo.save(planter);
 			
+			if(savedPlanter != null)
+				return savedPlanter;
+			
+			else
+				throw new PlanterException("Could not aad planter give planter details properly");
+		}
+		else {
+			throw new AdminException("Invalid admin id :"+key);
+		}
+			
+	}
+
+	@Override
+	public Planter updatePlanter(Planter planter, String key) throws PlanterException, AdminException {
+		
+		if(key.equals("admin")) {
+			Optional<Planter> opt = planterRepo.findById(planter.getPlanterId());
+			
+			if(opt.isPresent()) {
+				Planter updatedPlanter = planterRepo.save(planter);
+				return updatedPlanter;
+			}
+			throw new PlanterException("Invalid Planter Details!");
+		}
+		else {
+			throw new AdminException("Invalid admin id :"+key);
+		}
 		
 	}
 
 	@Override
-	public Planter updatePlanter(Planter planter) throws PlanterException {
-		
-		Optional<Planter> opt = planterRepo.findById(planter.getPlanterId());
-		
-		if(opt.isPresent()) {
-			Planter updatedPlanter = planterRepo.save(planter);
-			return updatedPlanter;
+	public Planter deletePlanter(Integer planterId, String key) throws PlanterException, AdminException {
+		if(key.equals("admin")){
+			Optional<Planter> opt = planterRepo.findById(planterId);
+			
+			if(opt.isPresent()) {
+				Planter deletedPlanter = opt.get();
+				planterRepo.delete(deletedPlanter);
+				return deletedPlanter;
+			}
+			else
+				throw new PlanterException("Invalid Planter Id :"+planterId);
 		}
-		throw new PlanterException("Invalid Planter Details!");
-	}
-
-	@Override
-	public Planter deletePlanter(Integer planterId) throws PlanterException {
-       Optional<Planter> opt = planterRepo.findById(planterId);
-		
-		if(opt.isPresent()) {
-			Planter deletedPlanter = opt.get();
-			planterRepo.delete(deletedPlanter);
-			return deletedPlanter;
-		}
-		throw new PlanterException("Invalid Planter Id :"+planterId);
-		
+		else {
+			throw new AdminException("Invalid admin id :"+key);
+		}		
 	}
 
 	@Override

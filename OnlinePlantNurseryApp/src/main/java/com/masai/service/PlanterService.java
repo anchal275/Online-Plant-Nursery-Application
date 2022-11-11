@@ -2,15 +2,16 @@ package com.masai.service;
 
 import java.util.List;
 
+import com.masai.exceptions.AdminException;
 import com.masai.exceptions.PlanterException;
 import com.masai.model.Planter;
 
 public interface PlanterService {
-	public Planter addPlanter(Planter planter)throws PlanterException;
+	public Planter addPlanter(Planter planter, String key)throws PlanterException, AdminException;
 
-	public Planter updatePlanter(Planter planter)throws PlanterException;
+	public Planter updatePlanter(Planter planter,  String key)throws PlanterException, AdminException;
 
-	public Planter deletePlanter(Integer planterId)throws PlanterException;
+	public Planter deletePlanter(Integer planterId,  String key)throws PlanterException, AdminException;
 
 	public Planter viewPlanter(Integer planterId)throws PlanterException;
 
