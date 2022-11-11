@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.masai.exceptions.PlanterException;
 import com.masai.model.Planter;
 import com.masai.repository.PlanterDao;
 
+@Service
 public class PlanterServiceImpl implements PlanterService{
 	
 	@Autowired
