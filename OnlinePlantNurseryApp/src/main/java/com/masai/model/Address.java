@@ -1,6 +1,7 @@
 package com.masai.model;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +27,8 @@ public class Address {
 	@NotBlank(message = "State name can not be blank")
 	private String state;
 	
-	@Pattern(regexp = "[1-9]{1}[0-9]{5}",message = "Pincode must of 6 digits")
+//	@Pattern(regexp = "[1-9]{1}[0-9]{5}",message = "Pincode must of 6 digits")
+	@NotNull
 	private Integer pincode;
 	
 	
