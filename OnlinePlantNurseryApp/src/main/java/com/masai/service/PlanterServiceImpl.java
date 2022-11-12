@@ -4,20 +4,29 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.masai.exceptions.PlanterException;
+import com.masai.model.CurrentUserSession;
+import com.masai.model.Planter;
+import com.masai.repository.CurrentUserSessionRepo;
+import com.masai.repository.PlanterDao;
 
-import com.masai.exceptions.AdminException;
+import com.masai.exceptions.LoginException;
 import com.masai.exceptions.PlanterException;
 import com.masai.model.Planter;
 import com.masai.repository.PlanterDao;
 
+@Service
 public class PlanterServiceImpl implements PlanterService{
 	
 	@Autowired
 	private PlanterDao planterRepo;
 	
+	@Autowired
+	private CurrentUserSessionRepo cRepo;
 	
-	@Override
-	public Planter addPlanter(Planter planter, String key) throws PlanterException, AdminException {
+
+	public Planter addPlanter(Planter planter, String key) throws PlanterException, LoginException {
 		
 		if(key.equals("admin")) {
 			Planter savedPlanter = planterRepo.save(planter);
@@ -29,13 +38,13 @@ public class PlanterServiceImpl implements PlanterService{
 				throw new PlanterException("Could not aad planter give planter details properly");
 		}
 		else {
-			throw new AdminException("Invalid admin id :"+key);
+			throw new LoginException("Invalid admin id :"+key);
 		}
 			
 	}
 
 	@Override
-	public Planter updatePlanter(Planter planter, String key) throws PlanterException, AdminException {
+	public Planter updatePlanter(Planter planter, String key) throws PlanterException, LoginException {
 		
 		if(key.equals("admin")) {
 			Optional<Planter> opt = planterRepo.findById(planter.getPlanterId());
@@ -47,13 +56,13 @@ public class PlanterServiceImpl implements PlanterService{
 			throw new PlanterException("Invalid Planter Details!");
 		}
 		else {
-			throw new AdminException("Invalid admin id :"+key);
+			throw new LoginException("Invalid admin id :"+key);
 		}
 		
 	}
 
 	@Override
-	public Planter deletePlanter(Integer planterId, String key) throws PlanterException, AdminException {
+	public Planter deletePlanter(Integer planterId, String key) throws PlanterException, LoginException {
 		if(key.equals("admin")){
 			Optional<Planter> opt = planterRepo.findById(planterId);
 			
@@ -66,53 +75,78 @@ public class PlanterServiceImpl implements PlanterService{
 				throw new PlanterException("Invalid Planter Id :"+planterId);
 		}
 		else {
-			throw new AdminException("Invalid admin id :"+key);
-		}
-		
-       
-		
+			throw new LoginException("Invalid admin id :"+key);
+		}		
 	}
 
 	@Override
-	public Planter viewPlanter(Integer planterId) throws PlanterException {
-		Optional<Planter> opt = planterRepo.findById(planterId);
+	public Planter viewPlanter(Integer planterId, String key) throws PlanterException, LoginException {
+		CurrentUserSession user = cRepo.findByKey(key);
 		
-		if(opt.isPresent()) {
-			Planter foundPlanter = opt.get();
+		if(user != null || key.equals("admin")) {
+			Optional<Planter> opt = planterRepo.findById(planterId);
 			
-			return foundPlanter;
+			if(opt.isPresent()) {
+				Planter foundPlanter = opt.get();
+				
+				return foundPlanter;
+			}
+			throw new PlanterException("Invalid Planter Id :"+planterId);
 		}
-		throw new PlanterException("Invalid Planter Id :"+planterId);
-	}
-
-	@Override
-	public List<Planter> viewPlanter(String planterShape) throws PlanterException {
-		List<Planter> allPlanter = planterRepo.findByPlanterShape(planterShape);
-		if(allPlanter.size() == 0)
-			throw new PlanterException("Invalid shape!");
-		else
-			return allPlanter;
-	}
-
-	@Override
-	public List<Planter> viewAllPlanters() throws PlanterException {
+		else 
+			throw new LoginException("Invalid id :"+key);
 		
-		List<Planter> allPlanters = planterRepo.findAll();
-		
-		if(allPlanters.size() == 0)
-			throw new PlanterException("Not any planter found");
-		else
-			return allPlanters;
 		
 	}
 
 	@Override
-	public List<Planter> viewAllPlanters(double minCost, double maxCost) throws PlanterException {
-		List<Planter> allPlanters = planterRepo.findByPlanterCostBetween(minCost, maxCost);
+	public List<Planter> viewPlanter(String planterShape, String key) throws PlanterException,  LoginException  {
+		CurrentUserSession user = cRepo.findByKey(key);
 		
-		if(allPlanters.size() == 0)
-			throw new PlanterException("Not any planter found");
+		if(user != null || key.equals("admin")) {
+			List<Planter> allPlanter = planterRepo.findByPlanterShape(planterShape);
+			if(allPlanter.size() == 0)
+				throw new PlanterException("Invalid shape!");
+			else
+				return allPlanter;
+		}
 		else
-			return allPlanters;
+			throw new LoginException("Invalid id :"+key);
+		
+	}
+
+	@Override
+	public List<Planter> viewAllPlanters(String key) throws PlanterException, LoginException  {
+		CurrentUserSession user = cRepo.findByKey(key);
+		if(user != null || key.equals("admin")) {
+			List<Planter> allPlanters = planterRepo.findAll();
+			
+			if(allPlanters.size() == 0)
+				throw new PlanterException("Not any planter found");
+			else
+				return allPlanters;
+		}
+		else 
+			throw new LoginException("Invalid id :"+key);
+		
+		
+	}
+
+	@Override
+	public List<Planter> viewAllPlanters(double minCost, double maxCost, String key) throws PlanterException, LoginException  {
+		CurrentUserSession user = cRepo.findByKey(key);
+		
+		
+		if(user != null || key.equals("admin")) {
+			List<Planter> allPlanters = planterRepo.findByPlanterCostBetween(minCost, maxCost);
+			
+			if(allPlanters.size() == 0)
+				throw new PlanterException("Not any planter found");
+			else
+				return allPlanters;
+		}
+		else
+			throw new LoginException("Invalid Id :"+key);
+		
 	}
 }
