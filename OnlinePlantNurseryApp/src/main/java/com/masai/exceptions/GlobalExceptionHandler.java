@@ -135,4 +135,13 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(ProductException.class)
+	public ResponseEntity<MyErrorBean> addressExceptionHandler(ProductException pe, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(pe.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
 }
