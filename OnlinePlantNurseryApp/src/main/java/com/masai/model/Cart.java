@@ -28,9 +28,6 @@ public class Cart {
 
 	private Double totalCost;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "cart")
-	private Customer customer;
-	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Planter> planters;
 
