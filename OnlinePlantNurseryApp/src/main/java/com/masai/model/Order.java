@@ -26,24 +26,21 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer bookingOrderId;
 	
+	private Integer customerId;
+	
 	private LocalDateTime orderDate;
 	
 	@NotBlank(message = "Please provide valid transaction mode")
 	@NotNull(message = "Transaction mode can not be null")
 	private String TransactionMode;
 	
+	
 	private Integer quantity;
 	
 	private Double totalCost;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Planter> planters;
+	private List<ProductDTO> products;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Plant> plants;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Seed> seeds;
 
 	public Order(LocalDateTime orderDate, String transactionMode, Integer quantity, Double totalCost) {
 		super();
