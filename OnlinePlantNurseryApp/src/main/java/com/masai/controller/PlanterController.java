@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.masai.exceptions.AdminException;
+import com.masai.exceptions.LoginException;
 import com.masai.exceptions.PlanterException;
 import com.masai.model.Planter;
 import com.masai.service.PlanterService;
@@ -28,8 +29,8 @@ public class PlanterController {
 	@Autowired
 	private PlanterService planterService;
 	
-	@PostMapping("/save/{aid}")
-	public ResponseEntity<Planter> savePlanterHandler(@Valid @PathVariable("aid") String adminId, @RequestBody Planter planter) throws PlanterException, AdminException{
+	@PostMapping("/save")
+	public ResponseEntity<Planter> savePlanterHandler ( @Valid  @RequestBody Planter planter, @RequestParam String adminId) throws PlanterException, LoginException{
 		
 		Planter savedPlanter = planterService.addPlanter(planter, adminId);
 		
@@ -37,8 +38,8 @@ public class PlanterController {
 	}
 	
 	
-	@PutMapping("/update/{aid}")
-	public ResponseEntity<Planter> updatePlanterHandler(@Valid @PathVariable("aid") String adminId, @RequestBody Planter planter) throws PlanterException, AdminException{
+	@PutMapping("/update")
+	public ResponseEntity<Planter> updatePlanterHandler(@Valid @RequestParam String adminId, @RequestBody Planter planter) throws PlanterException, LoginException{
 		
 		Planter updatedPlanter = planterService.updatePlanter(planter, adminId);
 		
@@ -47,8 +48,8 @@ public class PlanterController {
 	}
 	
 	
-	@DeleteMapping("/delete/{aid}/{pid}")
-	public ResponseEntity<Planter> deletePlanterHandler(@Valid @PathVariable("aid") String adminId, @PathVariable("pid") Integer pid) throws PlanterException, AdminException{
+	@DeleteMapping("/delete")
+	public ResponseEntity<Planter> deletePlanterHandler(@Valid @RequestParam("aid") String adminId, @RequestParam Integer pid) throws PlanterException, LoginException{
 		
 		Planter deletedPlanter = planterService.deletePlanter(pid, adminId);
 		
@@ -58,18 +59,18 @@ public class PlanterController {
 	
 	
 	@GetMapping("/byId/{pid}")
-	public ResponseEntity<Planter> getPlanterByIdHandler(@Valid @PathVariable("pid") Integer pid) throws PlanterException{
+	public ResponseEntity<Planter> getPlanterByIdHandler(@PathVariable Integer pid, @RequestParam String key) throws PlanterException, LoginException{
 		
-		Planter planter = planterService.viewPlanter(pid);
+		Planter planter = planterService.viewPlanter(pid, key);
 		
 		return new ResponseEntity<Planter>(planter, HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/byShape/{shape}")
-	public ResponseEntity<List<Planter>> getPlanterByShapeHandler(@Valid @PathVariable("shape") String shape) throws PlanterException{
+	public ResponseEntity<List<Planter>> getPlanterByShapeHandler( @PathVariable String shape, @RequestParam String key) throws PlanterException, LoginException{
 		
-		List<Planter> planters = planterService.viewPlanter(shape);
+		List<Planter> planters = planterService.viewPlanter(shape, key);
 		
 		return new ResponseEntity<List<Planter>>(planters, HttpStatus.OK);
 		
@@ -77,18 +78,18 @@ public class PlanterController {
 	
 	
 	@GetMapping("/allplanter")
-	public ResponseEntity<List<Planter>> getAllPlanterHandler() throws PlanterException{
+	public ResponseEntity<List<Planter>> getAllPlanterHandler(@RequestParam String key) throws PlanterException, LoginException{
 		
-		List<Planter> planters = planterService.viewAllPlanters();
+		List<Planter> planters = planterService.viewAllPlanters(key);
 		
 		return new ResponseEntity<List<Planter>>(planters, HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/betweenCost/{min}/{max}")
-    public ResponseEntity<List<Planter>> getAllPlanterByCostHandler(@Valid @PathVariable("min") double min, @PathVariable("max") double max) throws PlanterException{
+    public ResponseEntity<List<Planter>> getAllPlanterByCostHandler( @PathVariable double min, @PathVariable double max, @RequestParam String key) throws PlanterException, LoginException{
 		
-		List<Planter> planters = planterService.viewAllPlanters(min, max);
+		List<Planter> planters = planterService.viewAllPlanters(min, max, key);
 		
 		return new ResponseEntity<List<Planter>>(planters, HttpStatus.OK);
 		
