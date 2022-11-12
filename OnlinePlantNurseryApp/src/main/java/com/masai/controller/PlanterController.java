@@ -39,7 +39,7 @@ public class PlanterController {
 	
 	
 	@PutMapping("/update")
-	public ResponseEntity<Planter> updatePlanterHandler(@Valid @RequestParam String adminId, @RequestBody Planter planter) throws PlanterException, LoginException{
+	public ResponseEntity<Planter> updatePlanterHandler(@RequestParam String adminId, @Valid @RequestBody Planter planter) throws PlanterException, LoginException{
 		
 		Planter updatedPlanter = planterService.updatePlanter(planter, adminId);
 		
@@ -48,8 +48,8 @@ public class PlanterController {
 	}
 	
 	
-	@DeleteMapping("/delete")
-	public ResponseEntity<Planter> deletePlanterHandler(@Valid @RequestParam("aid") String adminId, @RequestParam Integer pid) throws PlanterException, LoginException{
+	@DeleteMapping("/delete/{pid}")
+	public ResponseEntity<Planter> deletePlanterHandler(@RequestParam String adminId, @PathVariable("pid") Integer pid) throws PlanterException, LoginException{
 		
 		Planter deletedPlanter = planterService.deletePlanter(pid, adminId);
 		
@@ -87,7 +87,7 @@ public class PlanterController {
 	}
 	
 	@GetMapping("/betweenCost/{min}/{max}")
-    public ResponseEntity<List<Planter>> getAllPlanterByCostHandler( @PathVariable double min, @PathVariable double max, @RequestParam String key) throws PlanterException, LoginException{
+    public ResponseEntity<List<Planter>> getAllPlanterByCostHandler( @PathVariable("min") double min, @PathVariable("max") double max, @RequestParam String key) throws PlanterException, LoginException{
 		
 		List<Planter> planters = planterService.viewAllPlanters(min, max, key);
 		

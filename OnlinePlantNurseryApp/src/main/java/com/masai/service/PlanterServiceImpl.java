@@ -15,11 +15,7 @@ import com.masai.repository.PlanterDao;
 import com.masai.exceptions.LoginException;
 
 import com.masai.model.Planter;
-import com.masai.repository.PlanterDao;
-import com.masai.exceptions.AdminException;
-
 import com.masai.exceptions.PlanterException;
-import com.masai.model.Planter;
 import com.masai.repository.PlanterDao;
 
 @Service
@@ -33,10 +29,8 @@ public class PlanterServiceImpl implements PlanterService{
 	private CurrentUserSessionRepo cRepo;
 	
 
+
 	public Planter addPlanter(Planter planter, String key) throws PlanterException, LoginException {
-
-
-	public Planter addPlanter(Planter planter, String key) throws PlanterException, AdminException {
 
 		
 		if(key.equals("admin")) {
@@ -89,7 +83,6 @@ public class PlanterServiceImpl implements PlanterService{
 
 			throw new LoginException("Invalid admin id :"+key);
 
-			throw new AdminException("Invalid admin id :"+key);
 
 		}		
 	}
