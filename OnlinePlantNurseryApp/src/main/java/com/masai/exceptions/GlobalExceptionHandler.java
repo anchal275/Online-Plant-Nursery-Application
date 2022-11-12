@@ -76,6 +76,82 @@ public class GlobalExceptionHandler {
 	return new ResponseEntity<>(validatorError,HttpStatus.NOT_ACCEPTABLE);
 	}
 
+<<<<<<< Updated upstream
 	
+=======
+	//loginException
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<MyErrorBean> loginExceptionHandler(LoginException ie,WebRequest wr){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ie.getMessage());
+		error.setDetails(wr.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+
+	//planter excepion handler
+		@ExceptionHandler(PlanterException.class)
+		public ResponseEntity<MyErrorBean> myPlanteExceptionHandler(PlanterException pe, WebRequest req){
+			
+			MyErrorBean err =new MyErrorBean();
+			err.setTimestamp(LocalDateTime.now());
+			err.setMessage(pe.getMessage());
+			err.setDetails(req.getDescription(false));
+			
+			return new ResponseEntity<MyErrorBean>(err, HttpStatus.BAD_REQUEST);
+		}
+
+	//customer Exception
+	@ExceptionHandler(CustomerException.class)
+	public ResponseEntity<MyErrorBean> customerExceptionHandler(CustomerException ce, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ce.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	//cartException
+	@ExceptionHandler(CartException.class)
+	public ResponseEntity<MyErrorBean> cartExceptionHandler(CartException ce, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ce.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	//orderException
+	@ExceptionHandler(OrderException.class)
+	public ResponseEntity<MyErrorBean> orderExceptionHandler(OrderException oe, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(oe.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	//addressException
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<MyErrorBean> addressExceptionHandler(AddressException ae, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(ae.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	//ProductException
+	@ExceptionHandler(ProductException.class)
+	public ResponseEntity<MyErrorBean> addressExceptionHandler(ProductException pe, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(pe.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+>>>>>>> Stashed changes
 	
 }
