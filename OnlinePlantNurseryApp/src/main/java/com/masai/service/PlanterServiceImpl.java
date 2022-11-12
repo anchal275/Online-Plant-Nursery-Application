@@ -6,12 +6,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.masai.exceptions.PlanterException;
+
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Planter;
 import com.masai.repository.CurrentUserSessionRepo;
 import com.masai.repository.PlanterDao;
 
 import com.masai.exceptions.LoginException;
+
+import com.masai.model.Planter;
+import com.masai.repository.PlanterDao;
+import com.masai.exceptions.AdminException;
+
 import com.masai.exceptions.PlanterException;
 import com.masai.model.Planter;
 import com.masai.repository.PlanterDao;
@@ -22,11 +28,16 @@ public class PlanterServiceImpl implements PlanterService{
 	@Autowired
 	private PlanterDao planterRepo;
 	
+
 	@Autowired
 	private CurrentUserSessionRepo cRepo;
 	
 
 	public Planter addPlanter(Planter planter, String key) throws PlanterException, LoginException {
+
+
+	public Planter addPlanter(Planter planter, String key) throws PlanterException, AdminException {
+
 		
 		if(key.equals("admin")) {
 			Planter savedPlanter = planterRepo.save(planter);
@@ -75,7 +86,11 @@ public class PlanterServiceImpl implements PlanterService{
 				throw new PlanterException("Invalid Planter Id :"+planterId);
 		}
 		else {
+
 			throw new LoginException("Invalid admin id :"+key);
+
+			throw new AdminException("Invalid admin id :"+key);
+
 		}		
 	}
 

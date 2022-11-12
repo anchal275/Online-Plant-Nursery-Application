@@ -5,6 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
+import com.masai.exceptions.LoginException;
+import com.masai.exceptions.SeedException;
+import com.masai.model.CurrentUserSession;
+import com.masai.model.Seed;
+import com.masai.repository.CurrentUserSessionRepo;
 import com.masai.exceptions.SeedException;
 import com.masai.model.Seed;
 import com.masai.repository.SeedRepo;
@@ -16,83 +23,127 @@ public class SeedServiceImpl implements SeedService{
 	@Autowired
 	private SeedRepo sRepo;
 	
+
+	@Autowired
+	private CurrentUserSessionRepo cRepo;
+	
 	@Override
-	public Seed addSeed(Seed seed) throws SeedException {
-		Seed saveSeed = sRepo.save(seed);
-		if(saveSeed==null) {
-			throw new SeedException("Seed Not Saved");
+	public Seed addSeed(Seed seed,String Key) throws SeedException,LoginException {
+		if(Key.equals("admin")) {
+			Seed saveSeed = sRepo.save(seed);
+			if(saveSeed==null) {
+				throw new SeedException("Seed Not Saved");
+			}else {
+				return saveSeed;
+			}	
 		}else {
-			return saveSeed;
+			throw new LoginException("Please Enter the Correct Admin Key");
 		}
+		
+		
 	}
 
 	@Override
-	public Seed updateSeed(Seed seed) throws SeedException {
-        Integer seedId = seed.getSeedId();
-		
-		Optional<Seed> find = sRepo.findById(seedId);
-		
-		if(find.isPresent()) {
-			return sRepo.save(seed);
-		}
-		else 
-			throw new SeedException("No Such Seed Exist, can't Update");	
-	}
+	public Seed updateSeed(Seed seed,String Key) throws SeedException,LoginException {
+        if(Key.equals("admin")) {
 
-	@Override
-	public Seed deleteSeed(Integer seedId) throws SeedException {
-		 Optional<Seed> find = sRepo.findById(seedId);		
+    		Integer seedId = seed.getSeedId();
+    		
+    		Optional<Seed> find = sRepo.findById(seedId);
+    		
+    		if(find.isPresent()) {
+    			return sRepo.save(seed);
+    		}
+    		else 
+    			throw new SeedException("No Such Seed Exist, can't Update");	
+        }else {
+        	throw new LoginException("Please Enter the Correct Admin Key");
+        }
 			
+	}
+
+	@Override
+	public Seed deleteSeed(Integer seedId,String Key) throws SeedException,LoginException {
+		if(Key.equals("admin")) {
+
+			Optional<Seed> find = sRepo.findById(seedId);		
+				
 			if(find.isPresent()) {
-				Seed seed = find.get();
-				sRepo.delete(seed);
+			Seed seed = find.get();
+			sRepo.delete(seed);
 				return seed;
 			}
 			else
-				throw  new SeedException("No Such Seed Exist with this SeedID, can't Delete");
+				throw  new SeedException("No Such Seed Exist with this SeedID, can't Delete");	
+		}else {
+			throw new LoginException("Please Enter the Correct Admin Key");
+		}
 	}
 
 	@Override
-	public Seed viewSeed(int seedId) throws SeedException {
-		Optional<Seed> find = sRepo.findById(seedId);		
+	public Seed viewSeed(int seedId,String Key) throws SeedException,LoginException {
+		CurrentUserSession loggedInUser = cRepo.findByKey(Key);
+		
+		if(loggedInUser!=null || Key.equals("admin")) {
+			Optional<Seed> find = sRepo.findById(seedId);		
 			
-	    return find.orElseThrow( ()-> new SeedException(
-	    "No Such Seed Exist with this SeedID : "+seedId));
+		    return find.orElseThrow( ()-> new SeedException(
+		    "No Such Seed Exist with this SeedID : "+seedId));
+		}else {
+			throw new LoginException("please provide a valid Key to view seed");
+		}
+		
+		
 	}
 
 	@Override
-	public List<Seed> viewSeed(String commonName) throws SeedException {
-		 List<Seed> seedListByCommonName = sRepo.findByCommonName(commonName);
+	public List<Seed> viewSeed(String commonName,String Key) throws SeedException,LoginException {
+		CurrentUserSession loggedInUser = cRepo.findByKey(Key);
+		
+		
+		if(loggedInUser!=null || Key.equals("admin")) {
+			List<Seed> seedListByCommonName = sRepo.findByCommonName(commonName);
 			
-	     if(seedListByCommonName.size()==0) {
-	     	throw  new SeedException("No Such Seed Exist with this Common Name"+commonName);
-	     }else {
-	     	return seedListByCommonName;
-	     }
+		     if(seedListByCommonName.size()==0) {
+		     	throw  new SeedException("No Such Seed Exist with this Common Name"+commonName);
+		     }else {
+		     	return seedListByCommonName;
+		     }	
+		}else {
+			throw new LoginException("please provide a valid Key to view seed with common name");
+		}
+		
 	}
 
 	@Override
-	public List<Seed> viewAllSeeds() throws SeedException {
-		List<Seed> ListOfAllSeeds = sRepo.findAll();
-	    if(ListOfAllSeeds.size()==0) {
-	       throw  new SeedException("Sorry Currently No Seeds Exists");
-	    }else {
-	       return ListOfAllSeeds;
-	    }
+	public List<Seed> viewAllSeeds(String Key) throws SeedException,LoginException {
+		CurrentUserSession loggedInUser = cRepo.findByKey(Key);
+		
+		if(loggedInUser!=null || Key.equals("admin")) {
+			List<Seed> ListOfAllSeeds = sRepo.findAll();
+		    if(ListOfAllSeeds.size()==0) {
+		       throw  new SeedException("Sorry Currently No Seeds Exists");
+		    }else {
+		       return ListOfAllSeeds;
+		    }	
+		}else {
+			throw new LoginException("please provide a valid Key to view all seed");
+		}
 	}
 
 	@Override
-	public List<Seed> viewAllSeeds(String typeOfSeed) throws SeedException {
-	   List<Seed> allSeedBySeedType = sRepo.findByTypeOfSeeds(typeOfSeed);
-	   if(allSeedBySeedType.size()==0) {
-	     throw  new SeedException("No Seeds Exists with this Seed Type :"+typeOfSeed);
+	public List<Seed> viewAllSeeds(String typeOfSeed,String Key) throws SeedException,LoginException {
+	   CurrentUserSession loggedInUser = cRepo.findByKey(Key);
+		
+	   if(loggedInUser!=null || Key.equals("admin")) {
+		   List<Seed> allSeedBySeedType = sRepo.findByTypeOfSeeds(typeOfSeed);
+		   if(allSeedBySeedType.size()==0) {
+		     throw  new SeedException("No Seeds Exists with this Seed Type :"+typeOfSeed);
+		   }else {
+		     return allSeedBySeedType;
+		   }   
 	   }else {
-	     return allSeedBySeedType;
-	   }
+		  throw new LoginException("please provide a valid Key to view all seed Type");
+	   }  
 	}
-	
-	
-
-	
-
 }
