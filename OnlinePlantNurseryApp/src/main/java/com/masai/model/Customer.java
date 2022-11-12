@@ -1,8 +1,6 @@
 package com.masai.model;
 
-<<<<<<< Updated upstream
-public class Customer {
-=======
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -18,9 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -59,9 +55,11 @@ public class Customer {
 	@Embedded
 	private Address address;
 	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Cart cart = new Cart();
+
 
 	public Customer(
 			@NotBlank(message = "Please provide a valid name") @NotNull(message = "Name can not be null") String name,
@@ -75,7 +73,5 @@ public class Customer {
 		this.password = password;
 	}
 	
-	
->>>>>>> Stashed changes
 
 }

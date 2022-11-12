@@ -1,10 +1,6 @@
 package com.masai.model;
 
-<<<<<<< Updated upstream
-public class Cart {
-=======
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,18 +22,22 @@ public class Cart {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+  
 	private Integer cartId;
 	
 	private Integer quantity;
 
 	private Double totalCost;
 	
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Planter> planters;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Plant> plants;
->>>>>>> Stashed changes
 
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Seed> seeds;
+	
+	
 }
