@@ -76,6 +76,7 @@ public class GlobalExceptionHandler {
 	return new ResponseEntity<>(validatorError,HttpStatus.NOT_ACCEPTABLE);
 	}
 
+	
 	//loginException
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<MyErrorBean> loginExceptionHandler(LoginException ie,WebRequest wr){
@@ -86,7 +87,7 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 
-	//mY planteR excepioN handleR
+	//planter excepion handler
 		@ExceptionHandler(PlanterException.class)
 		public ResponseEntity<MyErrorBean> myPlanteExceptionHandler(PlanterException pe, WebRequest req){
 			
@@ -98,7 +99,7 @@ public class GlobalExceptionHandler {
 			return new ResponseEntity<MyErrorBean>(err, HttpStatus.BAD_REQUEST);
 		}
 
-	
+	//customer Exception
 	@ExceptionHandler(CustomerException.class)
 	public ResponseEntity<MyErrorBean> customerExceptionHandler(CustomerException ce, WebRequest req){
 		MyErrorBean error = new MyErrorBean();
@@ -108,6 +109,7 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
+	//cartException
 	@ExceptionHandler(CartException.class)
 	public ResponseEntity<MyErrorBean> cartExceptionHandler(CartException ce, WebRequest req){
 		MyErrorBean error = new MyErrorBean();
@@ -117,6 +119,7 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
+	//orderException
 	@ExceptionHandler(OrderException.class)
 	public ResponseEntity<MyErrorBean> orderExceptionHandler(OrderException oe, WebRequest req){
 		MyErrorBean error = new MyErrorBean();
@@ -126,6 +129,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
+	
+	//addressException
 	@ExceptionHandler(AddressException.class)
 	public ResponseEntity<MyErrorBean> addressExceptionHandler(AddressException ae, WebRequest req){
 		MyErrorBean error = new MyErrorBean();
@@ -135,6 +140,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
+	
+	//ProductException
 	@ExceptionHandler(ProductException.class)
 	public ResponseEntity<MyErrorBean> addressExceptionHandler(ProductException pe, WebRequest req){
 		MyErrorBean error = new MyErrorBean();
@@ -143,5 +150,6 @@ public class GlobalExceptionHandler {
 		error.setDetails(req.getDescription(false));
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
+
 	
 }

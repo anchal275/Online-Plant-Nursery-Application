@@ -2,10 +2,8 @@ package com.masai.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.LoginException;
 import com.masai.exceptions.ProductException;
@@ -87,8 +85,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	
-	
-	
+
 	@Override
 	public String deleteFromCart(Integer productId, String key)
 			throws CustomerException, ProductException, LoginException {
@@ -103,11 +100,14 @@ public class CartServiceImpl implements CartService {
 		Customer customer = customerOpt.get();
 		
 		Cart cart = customer.getCart();
-		boolean flag = false;
-		flag = cart.getPlanters().removeIf(p-> p.getPlanterId()== productId);
-		flag = cart.getPlants().removeIf(p-> p.getPlantId()== productId);
-		flag = cart.getSeeds().removeIf(p-> p.getSeedId()== productId);
-		
+
+		boolean flag1 = false;
+		boolean flag2 = false;
+		boolean flag3 = false;
+		flag1 = cart.getPlanters().removeIf(p-> p.getPlanterId()== productId);
+		flag2 = cart.getPlants().removeIf(p-> p.getPlantId()== productId);
+		flag3 = cart.getSeeds().removeIf(p-> p.getSeedId()== productId);
+    
 		cart.setQuantity(cart.getPlanters().size()+cart.getPlants().size()+cart.getSeeds().size());
 		Double cost = 0.0;
 		for(Planter c:cart.getPlanters()) {
@@ -120,10 +120,14 @@ public class CartServiceImpl implements CartService {
 			cost += c.getSeedsCost();
 		}
 		cart.setTotalCost(cost);
-		
+
 		cartRepo.save(cart);
-		if(flag) return "Product deleted from cart";
-		return "Product does not exist in cart with product Id: "+ productId;
+		if(flag1 || flag2 || flag3) {
+			return "Product deleted from cart";
+		}else {
+			return "Product does not exist in cart with product Id: "+ productId;
+		}
+    
 	}
 
 	@Override
@@ -137,9 +141,9 @@ public class CartServiceImpl implements CartService {
 		Customer customer = customerOpt.get();
 		
 		Cart cart = customer.getCart();
-		if(cart.getQuantity()==0)
-			throw new ProductException("Cart is empty");
 
+		if(cart == null)
+			throw new ProductException("Cart is empty");
 		return cart;
 	}
 
@@ -154,17 +158,32 @@ public class CartServiceImpl implements CartService {
 		Customer customer = customerOpt.get();
 		
 		Cart cart = customer.getCart();
-		cartRepo.delete(cart);
-		
+		cart.getPlanters().removeAll(cart.getPlanters());
+		cart.getPlants().removeAll(cart.getPlants());
+		cart.getSeeds().removeAll(cart.getSeeds());
+        cart.setQuantity(0);
+        cart.setTotalCost(0.0);
+		cartRepo.save(cart);
+//	    cartRepo.deleteById(cart.getCartId());
+
 		return "All items successfully removed from cart";
 	}
 	
 	private void quantity(Cart cart) {
-		cart.setQuantity(cart.getQuantity()+1);
+
+		if(cart.getQuantity()==null) {
+			cart.setQuantity(1);
+		}else {
+			cart.setQuantity(cart.getQuantity()+1);
+		}
 	}
 	
 	private void cost(Double cost,Cart cart) {
-		cart.setTotalCost(cart.getTotalCost()+cost);
+		if(cart.getTotalCost()==null) {
+			cart.setTotalCost(cost);
+		}else {
+			cart.setTotalCost(cart.getTotalCost()+cost);
+		}
 	}
 
 }
