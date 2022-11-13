@@ -18,6 +18,8 @@ Online Plant Nursery Application Spring Boot Project
 
 # key learning
 - Applying Validations
-- Excption Handling
+- Exception Handling
 - Establishing Realtionship among tables
 - Spring Boot layered Architecture
+- User Login and logout session
+- Github Collaboration
