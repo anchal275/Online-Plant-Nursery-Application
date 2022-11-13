@@ -1,4 +1,6 @@
 package com.masai.model;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -6,7 +8,6 @@ import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +36,7 @@ public class Plant {
 	private String bloomTime;
 	
 	@NotNull
-    private String medicinalOrCulinaryUse;
+  private String medicinalOrCulinaryUse;
     
 	@NotNull
 	private String difficultyLevel;
@@ -55,7 +56,7 @@ public class Plant {
 	
 	@NotNull
 	@Min(value = 1 , message = "Plant Cost Cannot Be Zero")
-	private double plantCost;
+	private Double plantCost;
   
 
 }

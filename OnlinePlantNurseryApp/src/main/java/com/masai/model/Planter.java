@@ -54,8 +54,6 @@ public class Planter {
 	
 	@Min(value=1 , message = "Planter cost should not be less than 1")
 	private Double planterCost;
-	
-	
-	
+
 	
 }
