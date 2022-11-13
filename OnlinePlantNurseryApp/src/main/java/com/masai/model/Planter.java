@@ -53,13 +53,9 @@ public class Planter {
 	private Integer planterStock;
 	
 	@Min(value=1 , message = "Planter cost should not be less than 1")
-	private Integer planterCost;
+	private Double planterCost;
 	
-	@OneToOne(cascade= CascadeType.ALL)
-	Seed Seeds;
 	
-	@OneToOne(cascade= CascadeType.ALL)
-	Plant Plants;
 	
 	
 }
