@@ -12,7 +12,7 @@ import com.masai.model.Order;
 
 
 public interface OrderService {
-	
+
 	public String placeOrder(String transactionMode, String key) throws LoginException,CartException,OutOfStockException,CustomerException,ProductException;
 	public String cancelOrder(String key,Integer orderId) throws LoginException,OrderException;
 	public List<Order> viewOrder(String key ,Integer customerId) throws LoginException,OrderException,CustomerException;

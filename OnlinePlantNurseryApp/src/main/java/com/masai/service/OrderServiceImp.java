@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.masai.exceptions.CartException;
 import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.LoginException;
@@ -186,18 +184,10 @@ public class OrderServiceImp implements OrderService{
 				 throw new OutOfStockException("seed out of stock with id "+seed.getSeedsCost()+" and Plant name "+seed.getCommonName());
 			 } 
 		}
-		
-		
-		
-		
+	
 		
 		// stock maintaining;
-		
-		
-		
-		
-		
-		for(Map.Entry<Integer, Integer> e :planterQuantityCheck.entrySet()) {
+				for(Map.Entry<Integer, Integer> e :planterQuantityCheck.entrySet()) {
 			Integer id = e.getKey();
 			Integer value = e.getValue();
 			
@@ -220,8 +210,6 @@ public class OrderServiceImp implements OrderService{
 		}
 		
 		
-		
-		
 		for(Map.Entry<Integer, Integer> e :seedQuantityCheck.entrySet()) {
 			Integer id = e.getKey();
 			Integer value = e.getValue();
@@ -239,6 +227,7 @@ public class OrderServiceImp implements OrderService{
 		Order order = new Order();
 		
 		planterList.forEach(p->{
+    
 			ProductDTO pDto = new ProductDTO(p.getPlanterId(),"Planter");
 			order.getProducts().add(pDto);
 		});
@@ -261,7 +250,6 @@ public class OrderServiceImp implements OrderService{
 		order.setQuantity(cart.getQuantity());
 		order.setTotalCost(cart.getTotalCost());
 		orderRepo.save(order);
-		
 		
 		cartService.emptyCart(key);
 		
@@ -342,10 +330,6 @@ public class OrderServiceImp implements OrderService{
 		else{
 			throw new LoginException("customer not loggedIn: ");
 		}
-		
-		
-		
-		
 	}
 	
 	
