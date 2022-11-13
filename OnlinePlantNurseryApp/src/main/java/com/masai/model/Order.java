@@ -1,6 +1,7 @@
 package com.masai.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -43,7 +44,7 @@ public class Order {
 	
 	@Embedded
 	@ElementCollection
-	private List<ProductDTO> products;
+	private List<ProductDTO> products = new ArrayList<>();
 	
 
 	public Order(LocalDateTime orderDate, String transactionMode, Integer quantity, Double totalCost) {

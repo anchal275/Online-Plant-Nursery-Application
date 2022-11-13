@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.masai.exceptions.CartException;
 import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.LoginException;
@@ -28,6 +30,7 @@ import com.masai.repository.PlantRepo;
 import com.masai.repository.PlanterDao;
 import com.masai.repository.SeedRepo;
 
+@Service
 public class OrderServiceImp implements OrderService{
 	
 	
@@ -181,7 +184,7 @@ public class OrderServiceImp implements OrderService{
 			 Seed seed =seedOpt.get();
 			 seed.setSeedsStock(seed.getSeedsStock()-value);
 			 if(value>seed.getSeedsStock()) { 
-				 throw new OutOfStockException("seed out of stock with id "+seed.getSeedsCost()+" and Plant name "+seed.getCommonName());
+				 throw new OutOfStockException("seed out of stock with id "+seed.getSeedId()+" and seed name "+seed.getCommonName());
 			 } 
 		}
 	
@@ -280,8 +283,14 @@ public class OrderServiceImp implements OrderService{
 				
 				Customer customer = customerOpt.get();
 				
-				orderRepo.deleteById(orderId);
+				if(orderRepo.findById(orderId).isEmpty()) {
+					throw new OrderException("Please Enter a valid OrderID :"+orderId);
+				}else {
+					orderRepo.deleteById(orderId);
+						
+				}
 				
+			
 				
 		return "Order cancelled successfully";
 	}
