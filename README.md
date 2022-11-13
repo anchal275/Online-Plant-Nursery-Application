@@ -6,3 +6,18 @@ Online Plant Nursery Application Spring Boot Project
 
 # ER-Diagram
 ![Untitled](https://user-images.githubusercontent.com/105916493/201523747-1192a6de-aa8f-4ea1-abb2-f70cfc6a969d.jpg)
+# Technology Used
+- JAVA
+- Spring
+- Spring Boot
+- Swagger
+- lombok
+- Spring data JPA
+- Hibernate
+- MySQL
+
+# key learning
+- Applying Validations
+- Excption Handling
+- Establishing Realtionship among tables
+- Spring Boot layered Architecture
