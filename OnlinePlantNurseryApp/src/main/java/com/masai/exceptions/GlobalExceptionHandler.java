@@ -150,6 +150,20 @@ public class GlobalExceptionHandler {
 		error.setDetails(req.getDescription(false));
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
+	
+	
+	
+	
+	//OutOfStockException
+	
+	@ExceptionHandler(OutOfStockException.class)
+	public ResponseEntity<MyErrorBean> stockExceptionHandler(OutOfStockException pe, WebRequest req){
+		MyErrorBean error = new MyErrorBean();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(pe.getMessage());
+		error.setDetails(req.getDescription(false));
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
 
 	
 }

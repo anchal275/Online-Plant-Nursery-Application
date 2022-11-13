@@ -3,12 +3,13 @@ package com.masai.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name="ProductOrder")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,6 +41,8 @@ public class Order {
 	
 	private Double totalCost;
 	
+	@Embedded
+	@ElementCollection
 	private List<ProductDTO> products;
 	
 
