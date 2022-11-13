@@ -10,5 +10,5 @@ import com.masai.model.Planter;
 public interface PlanterDao extends JpaRepository<Planter, Integer>{
 
 	public List<Planter> findByPlanterShape(String planterShape);
-	public List<Planter> findByPlanterCostBetween(double pawan, double kumar);
+	public List<Planter> findByPlanterCostBetween(Double min, Double max);
 }
