@@ -13,6 +13,7 @@ import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.LoginException;
 import com.masai.exceptions.OrderException;
 import com.masai.exceptions.OutOfStockException;
+import com.masai.exceptions.ProductException;
 import com.masai.model.Cart;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
@@ -58,9 +59,13 @@ public class OrderServiceImp implements OrderService{
 	
 	@Autowired
 	SeedRepo seedRepo;
+	
+	
+	@Autowired
+	CartService cartService;
 
 	@Override
-	public String placeOrder(String transactionMode, String key) throws LoginException, CartException, OutOfStockException {
+	public String placeOrder(String transactionMode, String key) throws LoginException, CartException, OutOfStockException, ProductException,CustomerException {
 		String message ="";
 		
 		//customer login check;
@@ -257,6 +262,8 @@ public class OrderServiceImp implements OrderService{
 		order.setTotalCost(cart.getTotalCost());
 		orderRepo.save(order);
 		
+		
+		cartService.emptyCart(key);
 		
 		return "order placed";
 	}
