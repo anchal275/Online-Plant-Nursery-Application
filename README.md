@@ -21,5 +21,5 @@ Online Plant Nursery Application Spring Boot Project
 - Exception Handling
 - Establishing Realtionship among tables
 - Spring Boot layered Architecture
-- User Login and logout session
+- User Login and logout session handling 
 - Github Collaboration
