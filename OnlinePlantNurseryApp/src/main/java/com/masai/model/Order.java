@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,6 +41,8 @@ public class Order {
 	
 	private Double totalCost;
 	
+	@Embedded
+	@ElementCollection
 	private List<ProductDTO> products;
 	
 
