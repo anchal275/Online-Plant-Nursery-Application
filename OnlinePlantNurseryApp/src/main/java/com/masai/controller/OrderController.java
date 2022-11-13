@@ -16,6 +16,7 @@ import com.masai.exceptions.CartException;
 import com.masai.exceptions.CustomerException;
 import com.masai.exceptions.LoginException;
 import com.masai.exceptions.OrderException;
+import com.masai.exceptions.OutOfStockException;
 import com.masai.exceptions.ProductException;
 import com.masai.model.Order;
 import com.masai.service.OrderService;
@@ -27,7 +28,7 @@ public class OrderController {
 	private OrderService oService;
 	
 	@PostMapping("order/{transactionMode}")
-	public ResponseEntity<String> placeOrderHandler(@PathVariable String transactionMode,@RequestParam String key) throws LoginException, CartException{
+	public ResponseEntity<String> placeOrderHandler(@PathVariable String transactionMode,@RequestParam String key) throws LoginException, CartException, OutOfStockException, CustomerException, ProductException{
 		 String message = oService.placeOrder(transactionMode, key);
 		 return new ResponseEntity<String>(message,HttpStatus.CREATED);
 	}
@@ -42,9 +43,9 @@ public class OrderController {
 	
 	   
     @GetMapping("order/{customerId}")
-    public ResponseEntity<Order> viewOrderHandler(@PathVariable Integer customerId, @RequestParam String key) throws CustomerException, ProductException, LoginException, OrderException{
-    	Order order = oService.viewOrder(key, customerId);
-    	return new ResponseEntity<Order>(order,HttpStatus.CREATED);
+    public ResponseEntity<List<Order>> viewOrderHandler(@PathVariable Integer customerId, @RequestParam String key) throws CustomerException, ProductException, LoginException, OrderException{
+    	List<Order> listorder = oService.viewOrder(key, customerId);
+    	return new ResponseEntity<List<Order>>(listorder,HttpStatus.CREATED);
     }
     
     
