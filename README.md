@@ -6,16 +6,16 @@ After running this program in spring boot we have to hit this url to see all the
 ONLINE NURSERY PLANT and SEED MANAGMENT | Online plant and seed management where you can customer can buy and planter can sell their plants and seeds. Service Layers, Data Access Layers to generate different end points. Features:
 
 # Services Offered
--User Login and Signup.
--Admin can add planter with plants and seeds.
--Customer can buy planters with plant and seed.
--Customer can see all orders history.
--Customer can add products to cart 
+- User Login and Signup.
+- Admin can add planter with plants and seeds.
+- Customer can buy planters with plant and seed.
+- Customer can see all orders history.
+- Customer can add products to cart 
  # Backend
--Built authentication while login and logout using key.
--Stored the data on MySQL and used it for Authentication.
--Deployed the website on GitHub.
--collaborative project built by a team of 4, delivered in 4 days.
+- Built authentication while login and logout using key.
+- Stored the data on MySQL and used it for Authentication.
+- Deployed the website on GitHub.
+- collaborative project built by a team of 4, delivered in 4 days.
 
 # Module
 ![module](https://user-images.githubusercontent.com/105916493/201523734-62c70767-04aa-45a2-a677-287084ea8738.png)
