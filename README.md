@@ -41,7 +41,7 @@ ONLINE NURSERY PLANT and SEED MANAGMENT | Online plant and seed management where
 - Github Collaboration
 
 # Here is our team members
-<a href="https://github.com/anchal275">@Anchal Jaiswal</a>
-<a href="https://github.com/rituraj6">@Ritu Raj Verma</a>
-<a href="https://github.com/amanvyas1">@Aman Vyas</a>
+<p><a href="https://github.com/anchal275">@Anchal Jaiswal</a></p>
+<p><a href="https://github.com/rituraj6">@Ritu Raj Verma</a></p>
+<p><a href="https://github.com/amanvyas1">@Aman Vyas</a></p>
 
