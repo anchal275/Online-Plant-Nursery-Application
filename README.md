@@ -15,7 +15,7 @@ ONLINE NURSERY PLANT and SEED MANAGMENT | Online plant and seed management where
 - Built authentication while login and logout using key.
 - Stored the data on MySQL and used it for Authentication.
 - Deployed the website on GitHub.
-- collaborative project built by a team of 4, delivered in 4 days.
+- collaborative project built by a team of 4, delivered in 5 days.
 
 # Module
 ![module](https://user-images.githubusercontent.com/105916493/201523734-62c70767-04aa-45a2-a677-287084ea8738.png)
